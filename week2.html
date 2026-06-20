@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>소요리문답 2주차 모바일 퀴즈</title>
+  <style>
+    :root {
+      --bg: #f6f0e7;
+      --card: #fffdf8;
+      --ink: #1f2d38;
+      --muted: #667485;
+      --teal: #07565a;
+      --gold: #b88718;
+      --blue: #3b79e8;
+      --green: #24a870;
+      --red: #e8545f;
+      --yellow: #ffe08a;
+      --peach: #ffd7c2;
+      --line: #ddd3c5;
+      --shadow: 0 18px 40px rgba(31, 45, 56, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%, #e8f0fb 0 42px, transparent 43px),
+        radial-gradient(circle at 0% 100%, #fff0ea 0 78px, transparent 79px),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+    }
+
+    .phone {
+      width: min(100%, 430px);
+      min-height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    header {
+      padding: 12px 4px 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: .02em;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 9vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--teal);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 0 4px;
+    }
+
+    .buddy {
+      position: relative;
+      width: 74px;
+      height: 74px;
+      border-radius: 26px 26px 28px 28px;
+      background:
+        radial-gradient(circle at 26px 41px, #ffd5bd 0 5px, transparent 6px),
+        radial-gradient(circle at 49px 41px, #ffd5bd 0 5px, transparent 6px),
+        linear-gradient(145deg, #fff0dc, #ffc499 68%, #ffb6c9);
+      border: 2px solid #f09b63;
+      box-shadow: 0 14px 26px rgba(184, 135, 24, .24), 0 0 0 5px rgba(255, 224, 138, .35);
+      transform: rotate(-2deg);
+      overflow: hidden;
+    }
+
+    .buddy::before,
+    .buddy::after {
+      content: "";
+      position: absolute;
+      top: 33px;
+      width: 8px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--ink);
+    }
+
+    .buddy::before { left: 24px; }
+    .buddy::after { right: 24px; }
+
+    .buddy .mouth {
+      position: absolute;
+      left: 28px;
+      top: 51px;
+      width: 19px;
+      height: 9px;
+      border-bottom: 3px solid #b85c56;
+      border-radius: 0 0 999px 999px;
+    }
+
+    .buddy .spark {
+      position: absolute;
+      left: -9px;
+      top: -13px;
+      width: 91px;
+      height: 34px;
+      border-radius: 45% 48% 35% 38%;
+      background: linear-gradient(135deg, #182433, #3f5574 58%, #ffe08a);
+      clip-path: none;
+      transform: rotate(-5deg);
+    }
+
+    .buddy .brow {
+      position: absolute;
+      top: 28px;
+      width: 13px;
+      height: 3px;
+      border-radius: 999px;
+      background: #263545;
+    }
+
+    .buddy .brow.left {
+      left: 19px;
+      transform: rotate(-8deg);
+    }
+
+    .buddy .brow.right {
+      right: 19px;
+      transform: rotate(8deg);
+    }
+
+    .buddy .nose {
+      position: absolute;
+      left: 36px;
+      top: 40px;
+      width: 4px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(184, 92, 86, .26);
+    }
+
+    .speech {
+      position: relative;
+      border: 1px solid var(--line);
+      background: #fffaf1;
+      border-radius: 20px;
+      padding: 12px 14px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .speech::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 26px;
+      width: 12px;
+      height: 12px;
+      background: #fffaf1;
+      border-left: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transform: rotate(45deg);
+    }
+
+    .start-card {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fffaf1;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 18px 0 4px;
+    }
+
+    .meta {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fbf7ef;
+    }
+
+    .meta strong {
+      display: block;
+      color: var(--gold);
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .meta span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      min-height: 54px;
+      font: inherit;
+      font-size: 17px;
+      font-weight: 850;
+      color: white;
+      background: var(--teal);
+      box-shadow: 0 10px 22px rgba(7, 86, 90, .22);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button.secondary {
+      color: var(--teal);
+      background: #eef8f6;
+      border: 1px solid #b9d9d5;
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 2px;
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5dccf;
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      border-radius: inherit;
+      transition: width .25s ease;
+    }
+
+    .question-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #e7f1f2;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .question {
+      margin: 0;
+      font-size: clamp(24px, 6.4vw, 31px);
+      line-height: 1.24;
+      letter-spacing: -.02em;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .answers {
+      display: grid;
+      gap: 11px;
+      margin: 22px 0 0;
+    }
+
+    .answer {
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      width: 100%;
+      text-align: left;
+      padding: 14px 15px;
+      border-radius: 18px;
+      border: 1.5px solid var(--line);
+      background: #fffaf1;
+      color: var(--ink);
+      box-shadow: none;
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .answer .letter {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 10px;
+      background: #e7f1f2;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .answer.correct {
+      border-color: #5cc894;
+      background: #eafaf1;
+      color: #0d6d48;
+    }
+
+    .answer.wrong {
+      border-color: #f0a7ae;
+      background: #fff0f1;
+      color: #9b2430;
+    }
+
+    .feedback {
+      min-height: 84px;
+      margin-top: 14px;
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: #fbf7ef;
+      display: none;
+    }
+
+    .feedback.show { display: block; }
+    .feedback strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+    .feedback p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .footer-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .score-big {
+      font-size: 64px;
+      line-height: 1;
+      color: var(--teal);
+      font-weight: 950;
+      letter-spacing: -.04em;
+      margin: 8px 0 10px;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .review {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      max-height: 36vh;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .review-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fffaf1;
+    }
+
+    .review-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .review-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .hidden { display: none !important; }
+  
+    .buddy .cape {
+      position: absolute;
+      right: -4px;
+      bottom: -7px;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px 18px 18px 14px;
+      background: linear-gradient(135deg, #3b79e8, #7b5cff);
+      transform: rotate(-16deg);
+      opacity: .95;
+      z-index: -1;
+    }
+
+    .buddy .star {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 13px;
+      height: 13px;
+      background: #ffe08a;
+      clip-path: polygon(50% 0%, 62% 35%, 100% 35%, 69% 56%, 82% 100%, 50% 73%, 18% 100%, 31% 56%, 0 35%, 38% 35%);
+      filter: drop-shadow(0 2px 2px rgba(31,45,56,.18));
+    }
+
+    .buddy .shine {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.78);
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="phone">
+      <header>
+        <div class="eyebrow">WESTMINSTER SHORTER CATECHISM · 2주차</div>
+        <h1>하나님은 어떤 분이신가?</h1>
+        <p class="subtitle">소요리문답 제4문, 하나님의 성품을 퀴즈로 복습해요.</p>
+      </header>
+
+      <section id="start" class="panel start-card">
+        <div class="guide">
+          <div class="buddy" aria-hidden="true"><span class="cape"></span><span class="spark"></span><span class="star"></span><span class="shine"></span><span class="brow left"></span><span class="brow right"></span><span class="nose"></span><span class="mouth"></span></div>
+          <div class="speech">안녕, 나는 말씀 탐험대 진호야. 오늘은 하나님이 어떤 분이신지 별빛처럼 또렷하게 잡아보자.</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">제4문</span>
+          <span class="pill">하나님의 성품</span>
+          <span class="pill">영·무한·불변</span>
+        </div>
+        <div class="meta-grid">
+          <div class="meta"><strong>12</strong><span>문제</span></div>
+          <div class="meta"><strong>1</strong><span>핵심 문답</span></div>
+        </div>
+        <p class="hint">문제를 맞히며 제4문 핵심 단어를 붙잡아 봅니다. 틀려도 설명을 읽으면 다시 잡힙니다.</p>
+        <button id="startBtn">퀴즈 시작하기</button>
+      </section>
+
+      <section id="game" class="hidden">
+        <div class="topbar">
+          <span id="countText">1 / 12</span>
+          <div class="progress"><div id="bar" class="bar"></div></div>
+          <span id="scoreText">0점</span>
+        </div>
+
+        <article class="panel question-card">
+          <div class="guide" style="margin-top:0">
+            <div class="buddy" aria-hidden="true"><span class="cape"></span><span class="spark"></span><span class="star"></span><span class="shine"></span><span class="brow left"></span><span class="brow right"></span><span class="nose"></span><span class="mouth"></span></div>
+            <div id="mascotLine" class="speech">좋아, 첫 문제로 몸풀기!</div>
+          </div>
+          <span id="tag" class="tag">교재 1번</span>
+          <h2 id="question" class="question"></h2>
+          <p id="hint" class="hint"></p>
+          <div id="answers" class="answers"></div>
+          <div id="feedback" class="feedback">
+            <strong id="feedbackTitle"></strong>
+            <p id="feedbackText"></p>
+          </div>
+          <div class="footer-actions">
+            <button id="nextBtn" disabled>다음 문제</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="result" class="panel hidden">
+        <p class="eyebrow">퀴즈 완료</p>
+        <h2 class="result-title" id="resultTitle">잘했어요!</h2>
+        <div class="score-big" id="finalScore">0/12</div>
+        <p class="subtitle" id="resultText"></p>
+        <div id="review" class="review"></div>
+        <div class="footer-actions" style="margin-top:16px">
+          <button id="retryBtn">다시 하기</button>
+          <button id="shareBtn" class="secondary">점수 공유하기</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const quiz = [
+      {
+            tag: "제4문",
+            q: "제4문은 하나님이 어떤 분이라고 가장 먼저 말하나요?",
+            hint: "진호 힌트: 눈에 보이는 몸이 아니라는 뜻이에요.",
+            choices: [
+                  "영이시다",
+                  "돌이시다",
+                  "별이시다",
+                  "그림이시다"
+            ],
+            answer: 0,
+            why: "제4문은 하나님이 영이시라고 고백합니다. 하나님은 몸이나 모양에 갇힌 분이 아닙니다."
+      },
+      {
+            tag: "요 4:24",
+            q: "요한복음 4:24는 “하나님은 무엇이시니”라고 말하나요?",
+            hint: "예배도 영과 진리로 드린다고 이어집니다.",
+            choices: [
+                  "영",
+                  "바람",
+                  "불",
+                  "구름"
+            ],
+            answer: 0,
+            why: "요한복음 4:24는 “하나님은 영이시니”라고 말씀합니다."
+      },
+      {
+            tag: "존재하심",
+            q: "하나님은 누가 만들어서 계신 분인가요?",
+            hint: "출애굽기 3:14의 “나는 스스로 있는 자”를 떠올려 보세요.",
+            choices: [
+                  "아니요, 스스로 계시는 분",
+                  "사람이 만든 분",
+                  "천사가 만든 분",
+                  "세상이 만든 분"
+            ],
+            answer: 0,
+            why: "하나님은 자존하시는 분입니다. 아무에게도 의존하지 않고 스스로 계십니다."
+      },
+      {
+            tag: "전지",
+            q: "하나님의 전지는 무엇을 뜻하나요?",
+            hint: "과거, 현재, 미래까지 모두 아신다는 말입니다.",
+            choices: [
+                  "모든 것을 아심",
+                  "힘이 조금 있음",
+                  "자주 잊어버림",
+                  "멀리 여행하심"
+            ],
+            answer: 0,
+            why: "전지는 하나님이 자신과 만물의 과거, 현재, 미래를 모두 아신다는 뜻입니다."
+      },
+      {
+            tag: "지혜",
+            q: "하나님의 지혜는 하나님이 어떤 방법으로 뜻을 이루신다는 뜻인가요?",
+            hint: "하나님은 대충 하지 않으십니다.",
+            choices: [
+                  "가장 선한 방법",
+                  "가장 빠른 꼼수",
+                  "가장 시끄러운 방법",
+                  "아무렇게나 하는 방법"
+            ],
+            answer: 0,
+            why: "하나님은 완전한 지식으로 가장 선한 방법을 사용해 가장 선한 뜻을 이루십니다."
+      },
+      {
+            tag: "권능",
+            q: "하나님의 권능은 무엇을 이루시는 능력인가요?",
+            hint: "하나님이 뜻하신 일은 반드시 이루어집니다.",
+            choices: [
+                  "뜻하신 일",
+                  "사람의 욕심",
+                  "우연한 일",
+                  "틀린 약속"
+            ],
+            answer: 0,
+            why: "권능은 하나님께서 뜻하신 일을 실제로 이루시는 능력입니다."
+      },
+      {
+            tag: "거룩",
+            q: "“거룩하다”는 말의 기본 뜻은 무엇인가요?",
+            hint: "세상과 죄에서 따로 구별되신다는 뜻입니다.",
+            choices: [
+                  "구별되다",
+                  "숨겨지다",
+                  "약해지다",
+                  "섞이다"
+            ],
+            answer: 0,
+            why: "거룩하다는 말은 구별되다, 분리되다라는 뜻을 가집니다."
+      },
+      {
+            tag: "공의",
+            q: "하나님의 공의는 하나님이 피조물을 어떻게 다스리신다는 뜻인가요?",
+            hint: "틀린 것은 틀리다, 옳은 것은 옳다 하시는 분입니다.",
+            choices: [
+                  "의롭게 다스리심",
+                  "기분대로 다스리심",
+                  "아무 관심 없으심",
+                  "몰래 숨기심"
+            ],
+            answer: 0,
+            why: "하나님은 완전하고 정직하신 본성에 따라 피조물을 의롭게 다스리시는 공의로우신 분입니다."
+      },
+      {
+            tag: "인자",
+            q: "하나님의 인자하심은 하나님이 어떤 분이라는 뜻인가요?",
+            hint: "생명과 양식과 은혜를 베푸시는 분입니다.",
+            choices: [
+                  "선하시고 긍휼이 풍성하신 분",
+                  "차갑고 무관심한 분",
+                  "약속을 잊는 분",
+                  "죄를 좋아하는 분"
+            ],
+            answer: 0,
+            why: "하나님은 모든 피조물에게 선하시며, 죄인에게 은혜와 긍휼을 베푸시는 인자하신 분입니다."
+      },
+      {
+            tag: "진실",
+            q: "하나님의 진실하심은 하나님께 무엇이 없다는 뜻인가요?",
+            hint: "민수기 23:19는 하나님이 거짓말하지 않으신다고 말합니다.",
+            choices: [
+                  "거짓",
+                  "사랑",
+                  "능력",
+                  "지혜"
+            ],
+            answer: 0,
+            why: "하나님은 거짓이 없으시며, 약속하신 말씀을 반드시 이루시는 신실하신 분입니다."
+      },
+      {
+            tag: "무한·영원",
+            q: "하나님이 무한하시다는 말은 무엇이 없다는 뜻인가요?",
+            hint: "하나님의 완전하심에는 부족함이 없습니다.",
+            choices: [
+                  "제한과 결핍",
+                  "사랑과 은혜",
+                  "말씀과 약속",
+                  "거룩과 공의"
+            ],
+            answer: 0,
+            why: "무한성은 하나님께 어떤 제한이나 결핍도 없다는 뜻입니다."
+      },
+      {
+            tag: "불변",
+            q: "하나님은 변하는 세상 속에서도 왜 믿고 의지할 수 있나요?",
+            hint: "말라기 3:6 “나 여호와는 변하지 아니하나니”를 기억하세요.",
+            choices: [
+                  "언제나 변하지 않으시기 때문에",
+                  "가끔 마음이 바뀌시기 때문에",
+                  "세상보다 작으시기 때문에",
+                  "약속을 자주 잊으시기 때문에"
+            ],
+            answer: 0,
+            why: "하나님은 존재와 성품과 뜻과 약속이 변하지 않으십니다. 그래서 언제나 신뢰할 수 있습니다."
+      }
+];
+
+    const start = document.getElementById("start");
+    const game = document.getElementById("game");
+    const result = document.getElementById("result");
+    const startBtn = document.getElementById("startBtn");
+    const retryBtn = document.getElementById("retryBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const countText = document.getElementById("countText");
+    const scoreText = document.getElementById("scoreText");
+    const bar = document.getElementById("bar");
+    const tag = document.getElementById("tag");
+    const question = document.getElementById("question");
+    const hint = document.getElementById("hint");
+    const answers = document.getElementById("answers");
+    const feedback = document.getElementById("feedback");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+    const mascotLine = document.getElementById("mascotLine");
+    const finalScore = document.getElementById("finalScore");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const review = document.getElementById("review");
+
+    let index = 0;
+    let score = 0;
+    let locked = false;
+    let wrongs = [];
+    let currentChoices = [];
+
+    const mascotLines = [
+      "좋아, 반짝 망토 장착. 제4문 탐험 시작!",
+      "이번 문제는 핵심 단어를 잡으면 바로 보여.",
+      "보기들이 줄 서 있어도 정답은 한 명만 반짝거려.",
+      "천천히 읽어. 하나님이 어떤 분이신지 또렷해질 거야.",
+      "여기부터는 하나님의 성품 지도야. 길 잃지 말자.",
+      "어려우면 힌트부터. 진호의 별빛 힌트는 꽤 쓸 만해.",
+      "수업 때 크게 다룬 단어가 지금 등장합니다.",
+      "끝까지 가자. 오늘 제4문은 네 기억 속에 착륙한다."
+    ];
+
+    const correctLines = [
+      "정답. 별 하나 반짝, 핵심 하나 저장!",
+      "맞았어. 지금 제4문 근육이 생기는 중.",
+      "좋아. 그 단어는 오늘 놓치면 안 되는 단어야.",
+      "멋져. 하나님이 어떤 분이신지 또렷하게 잡았어."
+    ];
+
+    const wrongLines = [
+      "아깝다. 설명 보면 바로 다시 잡을 수 있어.",
+      "괜찮아. 어려운 단어는 한 번 더 보면 친구가 돼.",
+      "살짝 빗나갔어. 정답 단어를 다시 확인하자.",
+      "오답도 복습 버튼이야. 진호가 옆에서 다시 비춰 줄게."
+    ];
+
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function showScreen(name) {
+      start.classList.toggle("hidden", name !== "start");
+      game.classList.toggle("hidden", name !== "game");
+      result.classList.toggle("hidden", name !== "result");
+    }
+
+    function renderQuestion() {
+      locked = false;
+      nextBtn.disabled = true;
+      feedback.classList.remove("show");
+      const item = quiz[index];
+      mascotLine.textContent = mascotLines[index % mascotLines.length];
+      countText.textContent = `${index + 1} / ${quiz.length}`;
+      scoreText.textContent = `${score}점`;
+      bar.style.width = `${(index / quiz.length) * 100}%`;
+      tag.textContent = item.tag;
+      question.textContent = item.q;
+      hint.textContent = item.hint;
+      answers.innerHTML = "";
+      currentChoices = shuffle(item.choices.map((choice, originalIndex) => ({ choice, originalIndex })));
+      currentChoices.forEach(({ choice, originalIndex }, choiceIndex) => {
+        const btn = document.createElement("button");
+        btn.className = "answer";
+        btn.type = "button";
+        btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + choiceIndex)}</span><span>${escapeHtml(choice)}</span>`;
+        btn.addEventListener("click", () => choose(originalIndex));
+        answers.appendChild(btn);
+      });
+    }
+
+    function choose(originalChoiceIndex) {
+      if (locked) return;
+      locked = true;
+      const item = quiz[index];
+      const buttons = [...answers.querySelectorAll(".answer")];
+      const ok = originalChoiceIndex === item.answer;
+      if (ok) {
+        score += 1;
+        feedbackTitle.textContent = correctLines[index % correctLines.length];
+        feedbackTitle.style.color = "var(--green)";
+      } else {
+        wrongs.push({ q: item.q, correct: item.choices[item.answer], why: item.why });
+        feedbackTitle.textContent = wrongLines[index % wrongLines.length];
+        feedbackTitle.style.color = "var(--red)";
+      }
+      buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        const originalIndex = currentChoices[i].originalIndex;
+        if (originalIndex === item.answer) btn.classList.add("correct");
+        if (originalIndex === originalChoiceIndex && !ok) btn.classList.add("wrong");
+      });
+      feedbackText.textContent = item.why;
+      feedback.classList.add("show");
+      scoreText.textContent = `${score}점`;
+      nextBtn.disabled = false;
+      nextBtn.textContent = index === quiz.length - 1 ? "결과 보기" : "다음 문제";
+    }
+
+    function showResult() {
+      bar.style.width = "100%";
+      finalScore.textContent = `${score}/${quiz.length}`;
+      const rate = score / quiz.length;
+      if (rate >= .9) {
+        resultTitle.textContent = "아주 잘했어요!";
+        resultText.textContent = "핵심 내용을 또렷하게 붙잡고 있어요.";
+      } else if (rate >= .65) {
+        resultTitle.textContent = "좋아요, 거의 다 왔어요!";
+        resultText.textContent = "틀린 문제만 다시 보면 더 단단해집니다.";
+      } else {
+        resultTitle.textContent = "괜찮아요, 다시 붙잡으면 돼요.";
+        resultText.textContent = "설명을 읽고 한 번 더 도전해 보세요.";
+      }
+      review.innerHTML = "";
+      if (!wrongs.length) {
+        const item = document.createElement("div");
+        item.className = "review-item";
+        item.innerHTML = "<strong>틀린 문제가 없어요.</strong><span>오늘 배운 내용을 멋지게 기억했어요.</span>";
+        review.appendChild(item);
+      } else {
+        wrongs.forEach((w) => {
+          const item = document.createElement("div");
+          item.className = "review-item";
+          item.innerHTML = `<strong>${escapeHtml(w.q)}</strong><span>정답: ${escapeHtml(w.correct)}<br>${escapeHtml(w.why)}</span>`;
+          review.appendChild(item);
+        });
+      }
+      showScreen("result");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    startBtn.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      wrongs = [];
+      showScreen("game");
+      renderQuestion();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (index >= quiz.length - 1) {
+        showResult();
+      } else {
+        index += 1;
+        renderQuestion();
+      }
+    });
+
+    retryBtn.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      wrongs = [];
+      showScreen("game");
+      renderQuestion();
+    });
+
+    shareBtn.addEventListener("click", async () => {
+      const text = `소요리문답 2주차 퀴즈 결과: ${score}/${quiz.length}점`;
+      if (navigator.share) {
+        try { await navigator.share({ title: "소요리문답 2주차 퀴즈", text }); return; } catch {}
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        shareBtn.textContent = "점수 복사됨";
+        setTimeout(() => shareBtn.textContent = "점수 공유하기", 1400);
+      } catch {
+        alert(text);
+      }
+    });
+  </script>
+</body>
+</html>
