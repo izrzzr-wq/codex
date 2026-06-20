@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>소요리문답 1주차 모바일 퀴즈</title>
+  <style>
+    :root {
+      --bg: #f6f0e7;
+      --card: #fffdf8;
+      --ink: #1f2d38;
+      --muted: #667485;
+      --teal: #07565a;
+      --gold: #b88718;
+      --blue: #3b79e8;
+      --green: #24a870;
+      --red: #e8545f;
+      --yellow: #ffe08a;
+      --peach: #ffd7c2;
+      --line: #ddd3c5;
+      --shadow: 0 18px 40px rgba(31, 45, 56, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+      background:
+        radial-gradient(circle at 100% 0%, #e8f0fb 0 42px, transparent 43px),
+        radial-gradient(circle at 0% 100%, #fff0ea 0 78px, transparent 79px),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100%;
+      display: flex;
+      justify-content: center;
+      padding: max(18px, env(safe-area-inset-top)) 16px max(22px, env(safe-area-inset-bottom));
+    }
+
+    .phone {
+      width: min(100%, 430px);
+      min-height: calc(100vh - 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    header {
+      padding: 12px 4px 0;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: .02em;
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 9vw, 46px);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      color: var(--teal);
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+      align-items: center;
+      margin: 14px 0 4px;
+    }
+
+    .buddy {
+      position: relative;
+      width: 68px;
+      height: 68px;
+      border-radius: 24px 24px 26px 26px;
+      background:
+        radial-gradient(circle at 24px 38px, #ffd5bd 0 5px, transparent 6px),
+        radial-gradient(circle at 45px 38px, #ffd5bd 0 5px, transparent 6px),
+        linear-gradient(145deg, #ffe8d6, #ffcaa8);
+      border: 2px solid #e8a87d;
+      box-shadow: 0 10px 20px rgba(184, 135, 24, .18);
+      transform: rotate(-2deg);
+      overflow: hidden;
+    }
+
+    .buddy::before,
+    .buddy::after {
+      content: "";
+      position: absolute;
+      top: 30px;
+      width: 7px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--ink);
+    }
+
+    .buddy::before { left: 22px; }
+    .buddy::after { right: 22px; }
+
+    .buddy .mouth {
+      position: absolute;
+      left: 25px;
+      top: 46px;
+      width: 18px;
+      height: 9px;
+      border-bottom: 3px solid #b85c56;
+      border-radius: 0 0 999px 999px;
+    }
+
+    .buddy .spark {
+      position: absolute;
+      left: -8px;
+      top: -11px;
+      width: 84px;
+      height: 31px;
+      border-radius: 45% 48% 35% 38%;
+      background: #263545;
+      clip-path: none;
+      transform: rotate(-5deg);
+    }
+
+    .buddy .brow {
+      position: absolute;
+      top: 25px;
+      width: 13px;
+      height: 3px;
+      border-radius: 999px;
+      background: #263545;
+    }
+
+    .buddy .brow.left {
+      left: 17px;
+      transform: rotate(-8deg);
+    }
+
+    .buddy .brow.right {
+      right: 17px;
+      transform: rotate(8deg);
+    }
+
+    .buddy .nose {
+      position: absolute;
+      left: 33px;
+      top: 36px;
+      width: 4px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(184, 92, 86, .26);
+    }
+
+    .speech {
+      position: relative;
+      border: 1px solid var(--line);
+      background: #fffaf1;
+      border-radius: 20px;
+      padding: 12px 14px;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .speech::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 26px;
+      width: 12px;
+      height: 12px;
+      background: #fffaf1;
+      border-left: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transform: rotate(45deg);
+    }
+
+    .start-card {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #fffaf1;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--teal);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 18px 0 4px;
+    }
+
+    .meta {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fbf7ef;
+    }
+
+    .meta strong {
+      display: block;
+      color: var(--gold);
+      font-size: 20px;
+      margin-bottom: 2px;
+    }
+
+    .meta span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      min-height: 54px;
+      font: inherit;
+      font-size: 17px;
+      font-weight: 850;
+      color: white;
+      background: var(--teal);
+      box-shadow: 0 10px 22px rgba(7, 86, 90, .22);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    button.secondary {
+      color: var(--teal);
+      background: #eef8f6;
+      border: 1px solid #b9d9d5;
+      box-shadow: none;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 2px;
+    }
+
+    .progress {
+      height: 10px;
+      background: #e5dccf;
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      border-radius: inherit;
+      transition: width .25s ease;
+    }
+
+    .question-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: #e7f1f2;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .question {
+      margin: 0;
+      font-size: clamp(24px, 6.4vw, 31px);
+      line-height: 1.24;
+      letter-spacing: -.02em;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .hint {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .answers {
+      display: grid;
+      gap: 11px;
+      margin: 22px 0 0;
+    }
+
+    .answer {
+      display: flex;
+      align-items: center;
+      min-height: 58px;
+      width: 100%;
+      text-align: left;
+      padding: 14px 15px;
+      border-radius: 18px;
+      border: 1.5px solid var(--line);
+      background: #fffaf1;
+      color: var(--ink);
+      box-shadow: none;
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .answer .letter {
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      border-radius: 10px;
+      background: #e7f1f2;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .answer.correct {
+      border-color: #5cc894;
+      background: #eafaf1;
+      color: #0d6d48;
+    }
+
+    .answer.wrong {
+      border-color: #f0a7ae;
+      background: #fff0f1;
+      color: #9b2430;
+    }
+
+    .feedback {
+      min-height: 84px;
+      margin-top: 14px;
+      border-radius: 20px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: #fbf7ef;
+      display: none;
+    }
+
+    .feedback.show { display: block; }
+    .feedback strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+    .feedback p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .footer-actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .score-big {
+      font-size: 64px;
+      line-height: 1;
+      color: var(--teal);
+      font-weight: 950;
+      letter-spacing: -.04em;
+      margin: 8px 0 10px;
+    }
+
+    .result-title {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .review {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+      max-height: 36vh;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .review-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #fffaf1;
+    }
+
+    .review-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .review-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      font-weight: 700;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="phone">
+      <header>
+        <div class="eyebrow">WESTMINSTER SHORTER CATECHISM · 1주차</div>
+        <h1>하나님과 동행하는 첫걸음</h1>
+        <p class="subtitle">성경 · 교리 · 사람의 목적을 퀴즈로 복습해요.</p>
+      </header>
+
+      <section id="start" class="panel start-card">
+        <div class="guide">
+          <div class="buddy" aria-hidden="true"><span class="spark"></span><span class="brow left"></span><span class="brow right"></span><span class="nose"></span><span class="mouth"></span></div>
+          <div class="speech">안녕, 나는 말씀 탐험대 진호야. 오늘은 답만 맞히는 게 아니라 “왜 그런지”까지 잡아보자.</div>
+        </div>
+        <div class="pill-row">
+          <span class="pill">성경</span>
+          <span class="pill">교리</span>
+          <span class="pill">사람의 목적</span>
+        </div>
+        <div class="meta-grid">
+          <div class="meta"><strong>12</strong><span>문제</span></div>
+          <div class="meta"><strong>3</strong><span>핵심 문답</span></div>
+        </div>
+        <p class="hint">문제를 맞히면 별을 얻습니다. 틀려도 바로 설명을 보고 다시 기억하면 됩니다.</p>
+        <button id="startBtn">퀴즈 시작하기</button>
+      </section>
+
+      <section id="game" class="hidden">
+        <div class="topbar">
+          <span id="countText">1 / 12</span>
+          <div class="progress"><div id="bar" class="bar"></div></div>
+          <span id="scoreText">0점</span>
+        </div>
+
+        <article class="panel question-card">
+          <div class="guide" style="margin-top:0">
+            <div class="buddy" aria-hidden="true"><span class="spark"></span><span class="brow left"></span><span class="brow right"></span><span class="nose"></span><span class="mouth"></span></div>
+            <div id="mascotLine" class="speech">좋아, 첫 문제로 몸풀기!</div>
+          </div>
+          <span id="tag" class="tag">교재 1번</span>
+          <h2 id="question" class="question"></h2>
+          <p id="hint" class="hint"></p>
+          <div id="answers" class="answers"></div>
+          <div id="feedback" class="feedback">
+            <strong id="feedbackTitle"></strong>
+            <p id="feedbackText"></p>
+          </div>
+          <div class="footer-actions">
+            <button id="nextBtn" disabled>다음 문제</button>
+          </div>
+        </article>
+      </section>
+
+      <section id="result" class="panel hidden">
+        <p class="eyebrow">퀴즈 완료</p>
+        <h2 class="result-title" id="resultTitle">잘했어요!</h2>
+        <div class="score-big" id="finalScore">0/12</div>
+        <p class="subtitle" id="resultText"></p>
+        <div id="review" class="review"></div>
+        <div class="footer-actions" style="margin-top:16px">
+          <button id="retryBtn">다시 하기</button>
+          <button id="shareBtn" class="secondary">점수 공유하기</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const quiz = [
+      {
+        tag: "교재 1번",
+        q: "소요리문답은 성경의 중요한 가르침을 무엇으로 정리한 책인가요?",
+        hint: "진호 힌트: 이름부터 문답입니다. 너무 대놓고 힌트였나요?",
+        choices: ["질문과 답", "그림과 노래", "날짜와 숫자", "지도와 여행"],
+        answer: 0,
+        why: "소요리문답은 성경의 중요한 가르침을 질문과 답으로 정리한 신앙 교육서입니다."
+      },
+      {
+        tag: "교재 1번",
+        q: "소요리문답은 어느 총회에서 작성되었나요?",
+        hint: "수업 제목에도 계속 등장하는 그 이름입니다.",
+        choices: ["웨스트민스터 총회", "예루살렘 총회", "로마 총회", "갈릴리 총회"],
+        answer: 0,
+        why: "웨스트민스터 소요리문답은 1640년대 영국 웨스트민스터 총회에서 작성되었습니다."
+      },
+      {
+        tag: "교재 1번",
+        q: "교리란 성경의 내용을 어떻게 한 것인가요?",
+        hint: "교재 빈칸: 요약하고 ____하여. 책상 정리 느낌입니다.",
+        choices: ["요약하고 정리한 것", "숨기고 어렵게 만든 것", "바꾸고 꾸민 것", "외우지 못하게 만든 것"],
+        answer: 0,
+        why: "교리는 성경이 일관되게 말하는 내용을 요약하고 정리하여 고백한 것입니다."
+      },
+      {
+        tag: "교재 1번",
+        q: "성경은 모두 몇 권인가요?",
+        hint: "진호가 손가락으로는 못 세겠대요. 더하기로 갑니다.",
+        choices: ["66권", "39권", "27권", "100권"],
+        answer: 0,
+        why: "성경은 구약 39권, 신약 27권, 모두 66권입니다."
+      },
+      {
+        tag: "교재 2번",
+        q: "1주차에 배운 세 질문이 아닌 것은 무엇인가요?",
+        hint: "제1문, 제2문, 제3문을 떠올려 보세요.",
+        choices: ["사람의 목적", "삶의 기준", "성경의 핵심", "왕의 이름"],
+        answer: 3,
+        why: "1주차는 사람의 목적, 삶의 기준, 성경의 핵심을 배웠습니다."
+      },
+      {
+        tag: "제1문",
+        q: "사람의 제일 되는 목적은 하나님을 영화롭게 하고, 영원토록 하나님을 어떻게 하는 것인가요?",
+        hint: "하나님 안에서 참된 기쁨을 누리는 말입니다. 찡그리는 쪽은 아닙니다.",
+        choices: ["즐거워하는 것", "피하는 것", "잊어버리는 것", "시험하는 것"],
+        answer: 0,
+        why: "제1문 답: 하나님을 영화롭게 하는 것과 영원토록 그를 즐거워하는 것입니다."
+      },
+      {
+        tag: "교재 4번",
+        q: "고린도전서 10:31은 무엇을 하든지 하나님의 무엇을 위하여 하라고 하나요?",
+        hint: "하나님을 높이는 말입니다.",
+        choices: ["영광", "비밀", "걱정", "계획표"],
+        answer: 0,
+        why: "무엇을 하든지 다 하나님의 영광을 위하여 하라고 말씀합니다."
+      },
+      {
+        tag: "교재 4번",
+        q: "시편 73편에서 하나님은 내 마음의 반석이시요 영원한 무엇이라고 했나요?",
+        hint: "하나님이 내 삶의 전부라는 뜻입니다.",
+        choices: ["분깃", "숙제", "문제", "규칙"],
+        answer: 0,
+        why: "시편 73:26은 하나님이 내 마음의 반석이시요 영원한 분깃이라고 말합니다."
+      },
+      {
+        tag: "제2문",
+        q: "하나님께서 우리에게 주신 유일한 규칙은 무엇인가요?",
+        hint: "신구약 성경에 기록되어 있습니다.",
+        choices: ["하나님의 말씀", "사람의 생각", "세상의 유행", "친구의 의견"],
+        answer: 0,
+        why: "신구약 성경에 기록된 하나님의 말씀은 유일한 규칙입니다."
+      },
+      {
+        tag: "교재 6번",
+        q: "디모데후서 3:16은 모든 성경이 하나님의 무엇으로 되었다고 하나요?",
+        hint: "하나님께서 생명력 있는 호흡을 불어넣으셨다는 뜻입니다.",
+        choices: ["감동", "실수", "소문", "장식"],
+        answer: 0,
+        why: "모든 성경은 하나님의 감동으로 된 것입니다."
+      },
+      {
+        tag: "교재 6번",
+        q: "시편 119:105에서 주의 말씀은 내 길에 무엇이라고 하나요?",
+        hint: "어두운 길을 비춰 줍니다.",
+        choices: ["빛", "돌", "문", "벽"],
+        answer: 0,
+        why: "주의 말씀은 내 발에 등이요 내 길에 빛입니다."
+      },
+      {
+        tag: "제3문",
+        q: "성경이 가장 중요하게 가르치는 두 가지는 무엇인가요?",
+        hint: "믿음과 삶은 분리되지 않습니다.",
+        choices: ["하나님에 대해 어떻게 믿을 것과 하나님이 요구하시는 의무", "돈을 많이 버는 법과 유명해지는 법", "전쟁 이야기와 왕 이름", "음식 규칙과 운동 방법"],
+        answer: 0,
+        why: "성경은 하나님에 대하여 어떻게 믿을 것과 하나님이 사람에게 요구하시는 의무를 가르칩니다."
+      }
+    ];
+
+    const start = document.getElementById("start");
+    const game = document.getElementById("game");
+    const result = document.getElementById("result");
+    const startBtn = document.getElementById("startBtn");
+    const retryBtn = document.getElementById("retryBtn");
+    const shareBtn = document.getElementById("shareBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const countText = document.getElementById("countText");
+    const scoreText = document.getElementById("scoreText");
+    const bar = document.getElementById("bar");
+    const tag = document.getElementById("tag");
+    const question = document.getElementById("question");
+    const hint = document.getElementById("hint");
+    const answers = document.getElementById("answers");
+    const feedback = document.getElementById("feedback");
+    const feedbackTitle = document.getElementById("feedbackTitle");
+    const feedbackText = document.getElementById("feedbackText");
+    const mascotLine = document.getElementById("mascotLine");
+    const finalScore = document.getElementById("finalScore");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultText = document.getElementById("resultText");
+    const review = document.getElementById("review");
+
+    let index = 0;
+    let score = 0;
+    let locked = false;
+    let wrongs = [];
+    let currentChoices = [];
+
+    const mascotLines = [
+      "좋아, 머리 엔진 예열 완료. 가볍게 가 보자.",
+      "이번 문제는 살짝 함정이 있어. 발밑 조심.",
+      "보기들이 서로 모르는 척 서 있어도 정답은 하나야.",
+      "천천히 읽으면 답이 먼저 손을 흔들 거야.",
+      "좋아, 여기까지 왔으면 이미 절반은 탐험가야.",
+      "어려우면 힌트를 보고 다시 생각해도 괜찮아.",
+      "이번 건 수업 때 선생님이 강조한 그 부분!",
+      "마지막까지 집중. 진호가 조용히 응원 중."
+    ];
+
+    const correctLines = [
+      "정답. 방금 기억 주머니에 잘 넣었어.",
+      "맞았어. 이건 오늘 집에 가서도 자랑 가능.",
+      "좋아. 정답이 네 쪽으로 걸어왔네.",
+      "멋져. 핵심 단어를 제대로 붙잡았어."
+    ];
+
+    const wrongLines = [
+      "아깝다. 이 문제는 설명 보고 다시 잡으면 돼.",
+      "괜찮아. 틀린 문제는 기억에 더 오래 남기도 해.",
+      "잠깐 미끄러졌어. 정답 줄을 다시 따라가 보자.",
+      "오답도 훈련이야. 진호가 다시 설명해 줄게."
+    ];
+
+    function shuffle(array) {
+      const copy = array.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function showScreen(name) {
+      start.classList.toggle("hidden", name !== "start");
+      game.classList.toggle("hidden", name !== "game");
+      result.classList.toggle("hidden", name !== "result");
+    }
+
+    function renderQuestion() {
+      locked = false;
+      nextBtn.disabled = true;
+      feedback.classList.remove("show");
+      const item = quiz[index];
+      mascotLine.textContent = mascotLines[index % mascotLines.length];
+      countText.textContent = `${index + 1} / ${quiz.length}`;
+      scoreText.textContent = `${score}점`;
+      bar.style.width = `${(index / quiz.length) * 100}%`;
+      tag.textContent = item.tag;
+      question.textContent = item.q;
+      hint.textContent = item.hint;
+      answers.innerHTML = "";
+      currentChoices = shuffle(item.choices.map((choice, originalIndex) => ({ choice, originalIndex })));
+      currentChoices.forEach(({ choice, originalIndex }, choiceIndex) => {
+        const btn = document.createElement("button");
+        btn.className = "answer";
+        btn.type = "button";
+        btn.innerHTML = `<span class="letter">${String.fromCharCode(65 + choiceIndex)}</span><span>${escapeHtml(choice)}</span>`;
+        btn.addEventListener("click", () => choose(originalIndex));
+        answers.appendChild(btn);
+      });
+    }
+
+    function choose(originalChoiceIndex) {
+      if (locked) return;
+      locked = true;
+      const item = quiz[index];
+      const buttons = [...answers.querySelectorAll(".answer")];
+      const ok = originalChoiceIndex === item.answer;
+      if (ok) {
+        score += 1;
+        feedbackTitle.textContent = correctLines[index % correctLines.length];
+        feedbackTitle.style.color = "var(--green)";
+      } else {
+        wrongs.push({ q: item.q, correct: item.choices[item.answer], why: item.why });
+        feedbackTitle.textContent = wrongLines[index % wrongLines.length];
+        feedbackTitle.style.color = "var(--red)";
+      }
+      buttons.forEach((btn, i) => {
+        btn.disabled = true;
+        const originalIndex = currentChoices[i].originalIndex;
+        if (originalIndex === item.answer) btn.classList.add("correct");
+        if (originalIndex === originalChoiceIndex && !ok) btn.classList.add("wrong");
+      });
+      feedbackText.textContent = item.why;
+      feedback.classList.add("show");
+      scoreText.textContent = `${score}점`;
+      nextBtn.disabled = false;
+      nextBtn.textContent = index === quiz.length - 1 ? "결과 보기" : "다음 문제";
+    }
+
+    function showResult() {
+      bar.style.width = "100%";
+      finalScore.textContent = `${score}/${quiz.length}`;
+      const rate = score / quiz.length;
+      if (rate >= .9) {
+        resultTitle.textContent = "아주 잘했어요!";
+        resultText.textContent = "핵심 내용을 또렷하게 붙잡고 있어요.";
+      } else if (rate >= .65) {
+        resultTitle.textContent = "좋아요, 거의 다 왔어요!";
+        resultText.textContent = "틀린 문제만 다시 보면 더 단단해집니다.";
+      } else {
+        resultTitle.textContent = "괜찮아요, 다시 붙잡으면 돼요.";
+        resultText.textContent = "설명을 읽고 한 번 더 도전해 보세요.";
+      }
+      review.innerHTML = "";
+      if (!wrongs.length) {
+        const item = document.createElement("div");
+        item.className = "review-item";
+        item.innerHTML = "<strong>틀린 문제가 없어요.</strong><span>오늘 배운 내용을 멋지게 기억했어요.</span>";
+        review.appendChild(item);
+      } else {
+        wrongs.forEach((w) => {
+          const item = document.createElement("div");
+          item.className = "review-item";
+          item.innerHTML = `<strong>${escapeHtml(w.q)}</strong><span>정답: ${escapeHtml(w.correct)}<br>${escapeHtml(w.why)}</span>`;
+          review.appendChild(item);
+        });
+      }
+      showScreen("result");
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char]));
+    }
+
+    startBtn.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      wrongs = [];
+      showScreen("game");
+      renderQuestion();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (index >= quiz.length - 1) {
+        showResult();
+      } else {
+        index += 1;
+        renderQuestion();
+      }
+    });
+
+    retryBtn.addEventListener("click", () => {
+      index = 0;
+      score = 0;
+      wrongs = [];
+      showScreen("game");
+      renderQuestion();
+    });
+
+    shareBtn.addEventListener("click", async () => {
+      const text = `소요리문답 1주차 퀴즈 결과: ${score}/${quiz.length}점`;
+      if (navigator.share) {
+        try { await navigator.share({ title: "소요리문답 1주차 퀴즈", text }); return; } catch {}
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        shareBtn.textContent = "점수 복사됨";
+        setTimeout(() => shareBtn.textContent = "점수 공유하기", 1400);
+      } catch {
+        alert(text);
+      }
+    });
+  </script>
+</body>
+</html>
